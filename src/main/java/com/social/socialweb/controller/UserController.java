@@ -70,29 +70,57 @@ public class UserController {
         throw new Exception("User not exist with User ID : ");
     }
 
-    @PutMapping("/users")
-    public User updateUser(@RequestBody User user){
+    @PutMapping("/users/{userId}")
+    public User updateUser(@RequestBody User user, @PathVariable Integer userId)throws Exception{
 
-        User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
+        Optional<User> user1 = userRepository.findById(userId);
+
+        if(user1.isEmpty()){
+            throw new Exception("User not exist with id "+userId);
+        }
+
+        User oldUser = user1.get(); 
 
         if(user.getFirstName()!=null){
-            user1.setFirstName(user.getFirstName());
+            oldUser.setFirstName((user.getFirstName()));
         }
 
         if(user.getLastName()!=null){
-            user1.setLastName(user.getLastName());
+            oldUser.setLastName(user.getLastName());
         }
 
-        if (user.getEmail()!=null) {
-            user1.setEmail(user.getEmail());
+        if(user.getEmail()!=null){
+            oldUser.setEmail(user.getEmail());
         }
 
-        return user1;
+        User updatUser = userRepository.save(oldUser);
+
+
+        // if(user.getFirstName()!=null){
+        //     user1.setFirstName(user.getFirstName());
+        // }
+
+        // if(user.getLastName()!=null){
+        //     user1.setLastName(user.getLastName());
+        // }
+
+        // if (user.getEmail()!=null) {
+        //     user1.setEmail(user.getEmail());
+        // }
+
+        return updatUser;
     }
 
     @DeleteMapping("/users/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId){
+    public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
         
+        Optional<User> user = userRepository.findById(userId);
+
+        if(user.isEmpty()){
+            throw new Exception("User not exist with id "+userId);
+        }
+
+        userRepository.delete(user.get());
 
         return "User deleted ! "+userId;
     }
