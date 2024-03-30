@@ -57,15 +57,7 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
         
-        Optional<User> user = userRepository.findById(id);
-
-        if (user.isPresent()) {
-            return user.get();
-        }
-        // User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
-        // user1.setId(id);
-        
-        throw new Exception("User not exist with User ID : ");
+       
     }
 
     @PutMapping("/users/{userId}")
