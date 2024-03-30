@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.socialweb.models.User;
 import com.social.socialweb.repository.UserRepository;
+import com.social.socialweb.service.UserService;
 
 @RestController
 public class UserController {
@@ -21,16 +22,13 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/users")
     public User createUser(@RequestBody User user){
-        User newUser = new User();
-        newUser.setEmail(user.getEmail());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setPassword(user.getPassword());
-        newUser.setId(user.getId());
 
-        User savedUser = userRepository.save(newUser);
+        User savedUser = userService.registerUser(user);
 
         return savedUser;
     }
