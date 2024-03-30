@@ -63,8 +63,31 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User updateUser(User user){
-        return null;
+    public User updateUser(User user, Integer userId)throws Exception{
+
+        Optional<User> user1 = userRepository.findById(userId);
+
+        if(user1.isEmpty()){
+            throw new Exception("User not exist with id "+userId);
+        }
+
+        User oldUser = user1.get(); 
+
+        if(user.getFirstName()!=null){
+            oldUser.setFirstName((user.getFirstName()));
+        }
+
+        if(user.getLastName()!=null){
+            oldUser.setLastName(user.getLastName());
+        }
+
+        if(user.getEmail()!=null){
+            oldUser.setEmail(user.getEmail());
+        }
+
+        User updatUser = userRepository.save(oldUser);
+
+        return updatUser;
     }
 
     @Override
