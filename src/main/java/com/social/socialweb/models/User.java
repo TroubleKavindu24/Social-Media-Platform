@@ -1,6 +1,7 @@
 package com.social.socialweb.models;
 
 public class User {
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -10,14 +11,23 @@ public class User {
         //TODO auto-generated constructor stud
     }
 
-    public User(String firstName, String lastName, String email, String password){
+    public User(Integer id, String firstName, String lastName, String email, String password){
         super();
+        this.id=id;
         this.firstName=firstName;
         this.lastName=lastName;
         this.email=email;
         this.password=password;
     }
 
+    public void setId(Integer id){
+        this.id=id;
+    }
+
+    public Integer getId(){
+        return id;
+    }
+    
     public void setFirstName(String firstName){
         this.firstName=firstName;
     }
