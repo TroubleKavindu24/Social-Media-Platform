@@ -1,7 +1,7 @@
 package com.social.socialweb.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,24 +37,37 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getUsers(){
-        List<User> users = new ArrayList<>();
+        List<User> users = userRepository.findAll();
 
-        User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
-        User user2 = new User(2,"kkeek","rreerr","kkrreee@gmail.com","kkee1122");
-
-        users.add(user1);
-        users.add(user2);
-        
         return users;
     }
 
-    @GetMapping("/users/{userId}")
-    public User getUsersById(@PathVariable("userId") Integer id){
 
-        User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
-        user1.setId(id);
+
+    // public List<User> getUsers(){
+    //     List<User> users = new ArrayList<>();
+
+    //     User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
+    //     User user2 = new User(2,"kkeek","rreerr","kkrreee@gmail.com","kkee1122");
+
+    //     users.add(user1);
+    //     users.add(user2);
         
-        return user1;
+    //     return users;
+    // }
+
+    @GetMapping("/users/{userId}")
+    public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
+        
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            return user.get();
+        }
+        // User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
+        // user1.setId(id);
+        
+        throw new Exception("User not exist with User ID : ");
     }
 
     @PutMapping("/users")
