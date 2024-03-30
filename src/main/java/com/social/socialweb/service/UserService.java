@@ -11,7 +11,7 @@ public interface UserService {
 
     public User findUserByEmail(String email);
 
-    public User followUser(Integer userId1, Integer userId2);
+    public User followUser(Integer userId1, Integer userId2)throws Exception;
 
     public User updateUser(User user);
 

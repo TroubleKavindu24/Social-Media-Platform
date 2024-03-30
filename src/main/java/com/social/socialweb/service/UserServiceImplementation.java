@@ -47,7 +47,10 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User followUser(Integer userId1, Integer userId2){
+    public User followUser(Integer userId1, Integer userId2)throws Exception{
+
+        User user1 = findUserById(userId2);
+
         return null;
     }
 
