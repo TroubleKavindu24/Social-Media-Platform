@@ -48,9 +48,9 @@ public class PostServiceImplementation implements PostService {
     }
     
     @Override
-        public List<Post> findPostByUserId(Integer userId){
+    public List<Post> findPostByUserId(Integer userId){
             
-            return postRepository.findPostByUserId(userId);
+        return postRepository.findPostByUserId(userId);
     }
 
     @Override
@@ -62,11 +62,9 @@ public class PostServiceImplementation implements PostService {
         return opt.get();
     }
 
-    
-
     @Override
     public List<Post> findAllPost(){
-        return null;
+        return postRepository.findAll();
     }
 
     @Override
