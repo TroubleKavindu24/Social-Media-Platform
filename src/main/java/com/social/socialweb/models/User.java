@@ -1,5 +1,6 @@
 package com.social.socialweb.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -18,8 +19,8 @@ public class User {
     private String password;
 
     private String gender;
-    private List<Integer> followers;
-    private List<Integer> followings;
+    private List<Integer> followers = new ArrayList<>();
+    private List<Integer> followings = new ArrayList<>();
 
     public User(){
         //TODO auto-generated constructor stud
