@@ -73,8 +73,16 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public Post likePost(Integer postId, Integer userId){
-        return null;
+    public Post likePost(Integer postId, Integer userId)throws Exception{
+        Post post = findPostById(postId);
+        User user = userService.findUserById(userId);
+
+        if (post.getLiked().contains(user)) {
+            post.getLiked().remove(user);
+        }else{
+            post.getLiked().add(user);
+        }
+        return postRepository.save(post);
     }
 
 }

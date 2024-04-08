@@ -1,6 +1,8 @@
 package com.social.socialweb.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,19 +24,22 @@ public class Post {
 
     private User user;
 
+    private List<User> liked = new ArrayList<>();
+
     private LocalDateTime createdAt;
 
     public Post(){
 
     }
 
-    public Post(Integer id, String caption, String image, String video, User user, LocalDateTime createdAt){
+    public Post(Integer id, String caption, String image, String video, User user, List<User> liked, LocalDateTime createdAt){
         super();
         this.id=id;
         this.caption=caption;
         this.image=image;
         this.video=video;
         this.user=user;
+        this.liked=liked;
         this.createdAt=createdAt;
     }
 
@@ -78,4 +83,19 @@ public class Post {
         this.user=user;
     }
 
+    public List<User> getLiked(){
+        return liked;
+    }
+
+    public void setLiked(List<User> liked){
+        this.liked=liked;
+    }
+
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt=createdAt;
+    }
 }
