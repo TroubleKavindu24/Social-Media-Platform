@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.social.socialweb.models.Post;
 import com.social.socialweb.models.User;
 import com.social.socialweb.repository.PostRepository;
+import com.social.socialweb.repository.UserRepository;
 
 @Service
 public class PostServiceImplementation implements PostService {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     UserService userService;
@@ -68,8 +72,17 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public Post savedPost(Integer postId, Integer userId){
-        return null;
+    public Post savedPost(Integer postId, Integer userId)throws Exception{
+        Post post = findPostById(postId);
+        User user = userService.findUserById(userId);
+
+        if(user.getSavedPost().contains(post)){
+            user.getSavedPost().remove(post);
+        }else{
+            user.getSavedPost().add(post);
+            userRepository.save(user);
+        }
+        return post;
     }
 
     @Override

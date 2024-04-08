@@ -25,13 +25,16 @@ public class User {
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
 
+    private List<Post> savedPost = new ArrayList<>();
+
     public User(){
         //TODO auto-generated constructor stud
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, String gender, List<Integer> followers, List<Integer> followings){
+    public User(Integer id, List<Post> savedPost, String firstName, String lastName, String email, String password, String gender, List<Integer> followers, List<Integer> followings){
         super();
         this.id = id;
+        this.savedPost=savedPost;
         this.firstName = firstName; 
         this.lastName = lastName;
         this.email = email;
@@ -39,6 +42,14 @@ public class User {
         this.gender = gender;
         this.followers = followers; 
         this.followings = followings;
+    }
+
+    public List<Post> getSavedPost(){
+        return savedPost;
+    }
+
+    public void setSavedPost(List<Post> savedPost){
+        this.savedPost=savedPost;
     }
 
     public void setGender(String gender){
