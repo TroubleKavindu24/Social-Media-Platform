@@ -9,7 +9,7 @@ import com.social.socialweb.models.Post;
 
 public interface PostRepository extends JpaRepository<Post, Integer >{
 
-    @Query("select p from Post p ehere p.user.id=:userId")
+    @Query("select p from Post p where p.user.id=:userId")
     List<Post> findPostByUserId(Integer userId);
     
 }

@@ -1,4 +1,5 @@
 package com.social.socialweb.service;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +31,12 @@ public class PostServiceImplementation implements PostService {
         Post newPost = new Post();
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());
-        //newPost.setCreatedAt(new LocalDateTime);
+        newPost.setCreatedAt(LocalDateTime.now());
         newPost.setVideo(post.getVideo());
         newPost.setUser(user);
 
 
-        return newPost;
+        return postRepository.save(newPost);
     }
 
     @Override
@@ -50,6 +51,8 @@ public class PostServiceImplementation implements PostService {
 
         return "Post deleted successfully";
     }
+
+
     
     @Override
     public List<Post> findPostByUserId(Integer userId){
