@@ -2,8 +2,10 @@ package com.social.socialweb.controller;
 
 import java.util.List;
 // import java.util.Optional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 // import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +36,7 @@ public class UserController {
         return savedUser;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public List<User> getUsers(){
         List<User> users = userRepository.findAll();
 
@@ -55,7 +57,7 @@ public class UserController {
     //     return users;
     // }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/api/users/{userId}")
     public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
         User user = userService.findUserById(id);
 
@@ -63,7 +65,7 @@ public class UserController {
        
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/api/users/{userId}")
     public User updateUser(@RequestBody User user, @PathVariable Integer userId)throws Exception{
 
         User updateUser = userService.updateUser(user, userId);
@@ -71,19 +73,19 @@ public class UserController {
         return updateUser;
     }
 
-    // @DeleteMapping("/users/{userId}")
-    // public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
+    @DeleteMapping("/users/{userId}")
+    public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
         
-    //     Optional<User> user = userRepository.findById(userId);
+        Optional<User> user = userRepository.findById(userId);
 
-    //     if(user.isEmpty()){
-    //         throw new Exception("User not exist with id "+userId);
-    //     }
+        if(user.isEmpty()){
+            throw new Exception("User not exist with id "+userId);
+        }
 
-    //     userRepository.delete(user.get());
+        userRepository.delete(user.get());
 
-    //     return "User deleted ! "+userId;
-    // }
+        return "User deleted ! "+userId;
+    }
 
     @PutMapping("/users/follow/{userId1}/{userId2}")
     public User followUserHandler(@PathVariable Integer userId1, @PathVariable Integer userId2)throws Exception{
