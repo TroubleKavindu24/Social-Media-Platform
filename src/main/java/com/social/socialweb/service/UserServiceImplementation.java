@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.social.socialweb.config.JwtProvider;
 import com.social.socialweb.models.User;
 import com.social.socialweb.repository.UserRepository;
 
@@ -94,5 +95,15 @@ public class UserServiceImplementation implements UserService {
     public List<User> searchUser(String query){
 
         return userRepository.searchUser(query);
+    }
+
+    @Override
+    public User findUserByJwt(String jwt) {
+
+        String email = JwtProvider.getEmailFromJwtToken(jwt);
+
+        User user = userRepository.findByEmail(email);
+
+        return user;
     }
 }
