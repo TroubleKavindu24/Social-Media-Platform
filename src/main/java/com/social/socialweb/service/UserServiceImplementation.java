@@ -48,19 +48,19 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User followUser(Integer userId1, Integer userId2)throws Exception{
+    public User followUser(Integer regUserId, Integer userId2)throws Exception{
 
-        User user1 = findUserById(userId1);
+        User regUser = findUserById(regUserId);
 
         User user2 = findUserById(userId2);
 
-        user2.getFollowers().add(user1.getId());
-        user1.getFollowings().add(user2.getId());
+        user2.getFollowers().add(regUser.getId());
+        regUser.getFollowings().add(user2.getId());
 
-        userRepository.save(user1);
+        userRepository.save(regUser);
         userRepository.save(user2);
 
-        return user1;
+        return regUser;
     }
 
     @Override
@@ -84,6 +84,10 @@ public class UserServiceImplementation implements UserService {
 
         if(user.getEmail()!=null){
             oldUser.setEmail(user.getEmail());
+        }
+
+        if (user.getGender()!=null) {
+            oldUser.setGender(user.getGender());
         }
 
         User updatUser = userRepository.save(oldUser);
