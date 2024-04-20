@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,14 +29,16 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user){
+    //done
+    // @PostMapping("/users")
+    // public User createUser(@RequestBody User user){
 
-        User savedUser = userService.registerUser(user);
+    //     User savedUser = userService.registerUser(user);
 
-        return savedUser;
-    }
+    //     return savedUser;
+    // }
 
+    //done
     @GetMapping("/api/users")
     public List<User> getUsers(){
         List<User> users = userRepository.findAll();
@@ -43,37 +46,27 @@ public class UserController {
         return users;
     }
 
-
-
-    // public List<User> getUsers(){
-    //     List<User> users = new ArrayList<>();
-
-    //     User user1 = new User(1,"kkkkk","rrrrrr","kkrr@gmail.com","kk1122");
-    //     User user2 = new User(2,"kkeek","rreerr","kkrreee@gmail.com","kkee1122");
-
-    //     users.add(user1);
-    //     users.add(user2);
-        
-    //     return users;
-    // }
-
+    //done
     @GetMapping("/api/users/{userId}")
     public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
+        
         User user = userService.findUserById(id);
 
         return user;
        
     }
 
+    //done
     @PutMapping("/api/users/{userId}")
     public User updateUser(@RequestBody User user, @PathVariable Integer userId)throws Exception{
 
+        //User reqUser = userService.findUserByJwt(jwt);
         User updateUser = userService.updateUser(user, userId);
 
         return updateUser;
     }
 
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/api/users/{userId}")
     public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
         
         Optional<User> user = userRepository.findById(userId);
@@ -87,14 +80,14 @@ public class UserController {
         return "User deleted ! "+userId;
     }
 
-    @PutMapping("/users/follow/{userId1}/{userId2}")
+    @PutMapping("/api/users/follow/{userId1}/{userId2}")
     public User followUserHandler(@PathVariable Integer userId1, @PathVariable Integer userId2)throws Exception{
 
         User user = userService.followUser(userId1, userId2);
         return user;
     }
 
-    @GetMapping("/users/search")
+    @GetMapping("/api/users/search")
     public List<User>searchUser(@RequestParam("query")String query){
         List<User> users = userService.searchUser(query);
         
