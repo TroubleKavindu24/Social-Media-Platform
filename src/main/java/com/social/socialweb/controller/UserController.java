@@ -58,11 +58,13 @@ public class UserController {
     }
 
     //done
-    @PutMapping("/api/users/{userId}")
-    public User updateUser(@RequestBody User user, @PathVariable Integer userId)throws Exception{
+    @PutMapping("/api/users")
+    public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user)throws Exception{
+
+        User reqUser = userService.findUserByJwt(jwt);
 
         //User reqUser = userService.findUserByJwt(jwt);
-        User updateUser = userService.updateUser(user, userId);
+        User updateUser = userService.updateUser(user, reqUser.getId());
 
         return updateUser;
     }
