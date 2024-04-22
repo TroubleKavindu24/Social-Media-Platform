@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.social.socialweb.models.Comment;
 import com.social.socialweb.models.Post;
@@ -11,6 +12,7 @@ import com.social.socialweb.models.User;
 import com.social.socialweb.repository.CommentRepository;
 import com.social.socialweb.repository.PostRepository;
 
+@Service
 public class CommentServiceImplementation implements CommentService{
 
     @Autowired
@@ -54,9 +56,17 @@ public class CommentServiceImplementation implements CommentService{
     }
 
     @Override
-    public Comment likeComment(Integer commentId, Integer userId) {
-        // TODO Auto-generated method stub
-        return null;
+    public Comment likeComment(Integer commentId, Integer userId) throws Exception {
+        Comment comment = findCommentsById(commentId);
+        User user = userService.findUserById(userId);
+
+        if (!comment.getLiked().contains(user)) {
+            comment.getLiked().add(user);
+        }else{
+            comment.getLiked().remove(user);
+        }
+
+        return commentRepository.save(comment);
     }
     
 }
