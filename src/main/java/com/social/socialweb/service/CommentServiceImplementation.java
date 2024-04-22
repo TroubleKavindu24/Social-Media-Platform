@@ -1,6 +1,7 @@
 package com.social.socialweb.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,7 +43,13 @@ public class CommentServiceImplementation implements CommentService{
 
     @Override
     public Comment findCommentsById(Integer commentId) {
-        // TODO Auto-generated method stub
+
+        Optional<Comment> opt = commentRepository.findById(commentId);
+        
+        if(opt.isEmpty()){
+             
+        }
+        
         return null;
     }
 
