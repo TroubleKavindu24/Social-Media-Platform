@@ -42,15 +42,15 @@ public class CommentServiceImplementation implements CommentService{
     }
 
     @Override
-    public Comment findCommentsById(Integer commentId) {
+    public Comment findCommentsById(Integer commentId) throws Exception {
 
         Optional<Comment> opt = commentRepository.findById(commentId);
         
         if(opt.isEmpty()){
-             
+             throw new Exception("Comment not exists");
         }
         
-        return null;
+        return opt.get();
     }
 
     @Override
