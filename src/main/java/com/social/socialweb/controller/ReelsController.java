@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -38,5 +39,13 @@ public class ReelsController {
         List<Reels> reels = reelsService.findAllReels();
 
         return reels;
-    }
+    } 
+
+    @GetMapping("/api/reels/user/{userId}")
+    public List<Reels> findUsersReels(@PathVariable Integer userId) throws Exception{
+
+        List<Reels> reels = reelsService.findUsersReel(userId);
+
+        return reels;
+    } 
 }
