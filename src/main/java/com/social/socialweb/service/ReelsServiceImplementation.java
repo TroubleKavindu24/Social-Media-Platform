@@ -3,11 +3,13 @@ package com.social.socialweb.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.social.socialweb.models.Reels;
 import com.social.socialweb.models.User;
 import com.social.socialweb.repository.ReelsRepository;
 
+@Service
 public class ReelsServiceImplementation implements ReelsService{
 
     @Autowired
@@ -19,7 +21,7 @@ public class ReelsServiceImplementation implements ReelsService{
 
     @Override
     public Reels createReel(Reels reel, User user) {
-        
+
         Reels createReel = new Reels();
 
         createReel.setTitle(reel.getTitle());
@@ -31,14 +33,17 @@ public class ReelsServiceImplementation implements ReelsService{
 
     @Override
     public List<Reels> findAllReels() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllReels'");
+
+
+        return reelsRepository.findAll();
     }
 
     @Override
-    public List<Reels> findUsersReel(Integer userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUsersReel'");
+    public List<Reels> findUsersReel(Integer userId) throws Exception {
+
+        userService.findUserById(userId);
+
+        return reelsRepository.findByUserId(userId);
     }
     
 }
