@@ -47,7 +47,7 @@ public class PostController {
         return new ResponseEntity<ApiResponse>(res,HttpStatus.OK);
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/api/posts/{postId}")
     public ResponseEntity<Post> findPostByIdHandler(@PathVariable Integer postId) throws Exception{
 
         Post post = postService.findPostById(postId);
@@ -56,7 +56,7 @@ public class PostController {
 
     }
 
-    @GetMapping("/posts/user/{userId}")
+    @GetMapping("/api/posts/user/{userId}")
     public ResponseEntity<List<Post>> findUsersPost(@PathVariable Integer userId){
         List<Post> posts = postService.findPostByUserId(userId);
 
@@ -72,7 +72,7 @@ public class PostController {
 
     }
 
-    @PutMapping("/posts/save/{postId}")
+    @PutMapping("/api/posts/save/{postId}")
     public ResponseEntity<Post> savedPostHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer postId) throws Exception{
 
         User reqUser = userService.findUserByJwt(jwt);
@@ -82,7 +82,7 @@ public class PostController {
 
     }
 
-    @PutMapping("/posts/like/{postId}")
+    @PutMapping("/api/posts/like/{postId}")
     public ResponseEntity<Post> likePostHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer postId) throws Exception{
 
         User reqUser = userService.findUserByJwt(jwt);
