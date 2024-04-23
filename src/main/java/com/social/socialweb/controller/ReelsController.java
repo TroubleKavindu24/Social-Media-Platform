@@ -1,6 +1,9 @@
 package com.social.socialweb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,8 +27,16 @@ public class ReelsController {
     public Reels createReel(@RequestBody Reels reel,@RequestHeader ("Authorization") String jwt){
 
         User reqUser = userService.findUserByJwt(jwt);
-    Reels createdReels = reelsService.createReel(reel, reqUser);
+        Reels createdReels = reelsService.createReel(reel, reqUser);
 
         return createdReels;
+    }
+
+    @GetMapping("/api/reels")
+    public List<Reels> findAllReels(){
+
+        List<Reels> reels = reelsService.findAllReels();
+
+        return reels;
     }
 }
