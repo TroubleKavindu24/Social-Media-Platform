@@ -66,7 +66,7 @@ public class UserController {
         return updateUser;
     }
 
-    @DeleteMapping("/api/users/{userId}")
+    @DeleteMapping("/users/{userId}")
     public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
         
         Optional<User> user = userRepository.findById(userId);
