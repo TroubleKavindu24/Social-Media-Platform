@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.social.socialweb.exceptions.UserException;
 import com.social.socialweb.models.User;
 import com.social.socialweb.repository.UserRepository;
 import com.social.socialweb.service.UserService;
@@ -46,7 +47,7 @@ public class UserController {
 
     //done
     @GetMapping("/api/users/{userId}")
-    public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
+    public User getUsersById(@PathVariable("userId") Integer id) throws UserException{
         
         User user = userService.findUserById(id);
 
@@ -56,7 +57,7 @@ public class UserController {
 
     //done
     @PutMapping("/api/users")
-    public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user)throws Exception{
+    public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user)throws UserException{
 
         User reqUser = userService.findUserByJwt(jwt);
 
@@ -67,12 +68,12 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId)throws Exception{
+    public String deleteUser(@PathVariable("userId") Integer userId)throws UserException{
         
         Optional<User> user = userRepository.findById(userId);
 
         if(user.isEmpty()){
-            throw new Exception("User not exist with id "+userId);
+            throw new UserException("User not exist with id "+userId);
         }
 
         userRepository.delete(user.get());
@@ -81,7 +82,7 @@ public class UserController {
     }
 
     @PutMapping("/api/users/follow/{userId2}")
-    public User followUserHandler(@RequestHeader("Authorization") String jwt,@PathVariable Integer userId2)throws Exception{
+    public User followUserHandler(@RequestHeader("Authorization") String jwt,@PathVariable Integer userId2)throws UserException{
 
         User regUser = userService.findUserByJwt(jwt);
         User user = userService.followUser(regUser.getId(), userId2);
