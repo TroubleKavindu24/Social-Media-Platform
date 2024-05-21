@@ -44,13 +44,5 @@ public class jwtValidator extends OncePerRequestFilter {
                     
                 filterChain.doFilter(request, response);
 
-                //throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
     }
 }
-
-    
-
-
-
-
-
